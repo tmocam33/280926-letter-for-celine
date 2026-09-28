@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Letter For My Baby</title>
+  <title>A Letter For You</title>
   <style>
     body {
       background-color: #ffe6e6;
@@ -18,7 +18,7 @@
     .envelope-wrapper {
       position: relative;
       cursor: pointer;
-      width: 320px; /* Slightly wider to fit the photo */
+      width: 320px; 
       height: 240px;
     }
     .envelope {
@@ -55,7 +55,7 @@
       border-top: 120px solid transparent;
       left: 0;
       z-index: 4;
-      height: 100%;
+      /* The bug was here! Removed the height property so the triangle forms perfectly */
     }
     .flap {
       position: absolute;
@@ -92,7 +92,6 @@
       color: #d6336c;
       margin: 0;
     }
-    /* Styles for your couple photo */
     .letter .photo {
       width: 100%;
       max-height: 160px;
@@ -108,14 +107,13 @@
       line-height: 1.4;
       margin: 0;
     }
-    /* Animation Triggers */
     .envelope-wrapper.open .flap {
       transform: rotateX(180deg);
       z-index: 1;
     }
     .envelope-wrapper.open .letter {
-      transform: translateY(-160px); /* Pushes the card up more to show the picture */
-      height: 320px; /* Card expands upwards so she can read and view the photo */
+      transform: translateY(-160px); 
+      height: 320px; 
       z-index: 4;
     }
     .hint {
@@ -135,7 +133,6 @@
 </head>
 <body>
 
-  <!-- Hidden background music -->
   <audio id="bg-music" loop>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
@@ -147,7 +144,6 @@
     
     <div class="letter">
       <h1>Hey Beautiful ❤️</h1>
-      <!-- Added your Photo -->
       <img src="us.jpg" alt="Us" class="photo">
       <p>I just wanted to make something small to remind you how much you mean to me. You're amazing.</p>
     </div>
