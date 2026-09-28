@@ -55,7 +55,6 @@
       border-top: 120px solid transparent;
       left: 0;
       z-index: 4;
-      /* The bug was here! Removed the height property so the triangle forms perfectly */
     }
     .flap {
       position: absolute;
@@ -77,7 +76,6 @@
       background-color: #fffaf0;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.6s ease-in-out, height 0.6s ease-in-out;
       z-index: 2;
       padding: 15px;
       box-sizing: border-box;
@@ -86,6 +84,15 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+
+      /* FIX: Completely hide the letter's contents and container when closed */
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden; 
+      pointer-events: none;
+      
+      /* Animate height, translate, opacity, and visibility simultaneously */
+      transition: transform 0.6s ease-in-out, height 0.6s ease-in-out, opacity 0.4s ease-in-out, visibility 0.4s ease-in-out;
     }
     .letter h1 {
       font-size: 18px;
@@ -115,6 +122,11 @@
       transform: translateY(-160px); 
       height: 320px; 
       z-index: 4;
+
+      /* FIX: Bring it to visible & interactive when open */
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
     }
     .hint {
       position: absolute;
