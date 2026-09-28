@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter For You</title>
+  <style>
+    /* Keep all your previous CSS styles exactly the same here */
+    body {
+      background-color: #ffe6e6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+    .envelope-wrapper {
+      position: relative;
+      cursor: pointer;
+    }
+    .envelope {
+      width: 300px;
+      height: 200px;
+      background-color: #ff8c8c;
+      position: relative;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      z-index: 3;
+    }
+    .envelope::before {
+      content: '';
+      position: absolute;
+      border-right: 150px solid transparent;
+      border-bottom: 100px solid #ff9999;
+      border-left: 150px solid transparent;
+      bottom: 0;
+      z-index: 3;
+    }
+    .envelope::after {
+      content: '';
+      position: absolute;
+      border-right: 150px solid #ff7a7a;
+      border-bottom: 100px solid transparent;
+      border-top: 100px solid transparent;
+      right: 0;
+      z-index: 3;
+    }
+    .envelope-left {
+      position: absolute;
+      border-left: 150px solid #ff7a7a;
+      border-bottom: 100px solid transparent;
+      border-top: 100px solid transparent;
+      left: 0;
+      z-index: 4;
+    }
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-top: 100px solid #ff8c8c;
+      transform-origin: top;
+      transition: transform 0.6s ease-in-out, z-index 0.2s;
+      z-index: 5;
+    }
+    .letter {
+      position: absolute;
+      bottom: 0;
+      left: 5%;
+      width: 90%;
+      height: 90%;
+      background-color: #fffaf0;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.6s ease-in-out;
+      z-index: 2;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .letter h1 {
+      font-size: 20px;
+      color: #d6336c;
+      margin-top: 0;
+    }
+    .letter p {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+    .envelope-wrapper.open .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+    .envelope-wrapper.open .letter {
+      transform: translateY(-120px);
+      z-index: 4;
+    }
+    .hint {
+      position: absolute;
+      bottom: -40px;
+      width: 100%;
+      text-align: center;
+      color: #d6336c;
+      font-weight: bold;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hidden audio file -->
+  <audio id="bg-music" loop>
+    <source src="song.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Added a function to open the envelope AND play the music -->
+  <div class="envelope-wrapper" onclick="openAndPlay()">
+    <div class="flap"></div>
+    <div class="envelope-left"></div>
+    <div class="envelope"></div>
+    <div class="letter">
+      <h1>Hey Beautiful ❤️</h1>
+      <p>I just wanted to make something small to remind you how much you mean to me. You're amazing.</p>
+    </div>
+    <div class="hint">Tap to open</div>
+  </div>
+
+  <script>
+    function openAndPlay() {
+      // Toggle the envelope open/closed
+      const wrapper = document.querySelector('.envelope-wrapper');
+      wrapper.classList.toggle('open');
+      
+      // Play or pause the music depending on if it's open
+      const music = document.getElementById('bg-music');
+      if (wrapper.classList.contains('open')) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>
