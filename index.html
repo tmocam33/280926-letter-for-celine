@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Letter For You</title>
+  <title>A Letter For My Baby</title>
   <style>
-    /* Keep all your previous CSS styles exactly the same here */
     body {
       background-color: #ffe6e6;
       display: flex;
@@ -19,87 +18,104 @@
     .envelope-wrapper {
       position: relative;
       cursor: pointer;
+      width: 320px; /* Slightly wider to fit the photo */
+      height: 240px;
     }
     .envelope {
-      width: 300px;
-      height: 200px;
+      width: 100%;
+      height: 100%;
       background-color: #ff8c8c;
       position: relative;
       border-radius: 0 0 8px 8px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       z-index: 3;
     }
     .envelope::before {
       content: '';
       position: absolute;
-      border-right: 150px solid transparent;
-      border-bottom: 100px solid #ff9999;
-      border-left: 150px solid transparent;
+      border-right: 160px solid transparent;
+      border-bottom: 120px solid #ff9999;
+      border-left: 160px solid transparent;
       bottom: 0;
       z-index: 3;
     }
     .envelope::after {
       content: '';
       position: absolute;
-      border-right: 150px solid #ff7a7a;
-      border-bottom: 100px solid transparent;
-      border-top: 100px solid transparent;
+      border-right: 160px solid #ff7a7a;
+      border-bottom: 120px solid transparent;
+      border-top: 120px solid transparent;
       right: 0;
       z-index: 3;
     }
     .envelope-left {
       position: absolute;
-      border-left: 150px solid #ff7a7a;
-      border-bottom: 100px solid transparent;
-      border-top: 100px solid transparent;
+      border-left: 160px solid #ff7a7a;
+      border-bottom: 120px solid transparent;
+      border-top: 120px solid transparent;
       left: 0;
       z-index: 4;
+      height: 100%;
     }
     .flap {
       position: absolute;
       top: 0;
       left: 0;
-      border-left: 150px solid transparent;
-      border-right: 150px solid transparent;
-      border-top: 100px solid #ff8c8c;
+      border-left: 160px solid transparent;
+      border-right: 160px solid transparent;
+      border-top: 120px solid #ff8c8c;
       transform-origin: top;
       transition: transform 0.6s ease-in-out, z-index 0.2s;
       z-index: 5;
     }
     .letter {
       position: absolute;
-      bottom: 0;
+      bottom: 5px;
       left: 5%;
       width: 90%;
       height: 90%;
       background-color: #fffaf0;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.6s ease-in-out;
+      transition: transform 0.6s ease-in-out, height 0.6s ease-in-out;
       z-index: 2;
-      padding: 20px;
+      padding: 15px;
       box-sizing: border-box;
       text-align: center;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      align-items: center;
+      justify-content: space-between;
     }
     .letter h1 {
-      font-size: 20px;
+      font-size: 18px;
       color: #d6336c;
-      margin-top: 0;
+      margin: 0;
+    }
+    /* Styles for your couple photo */
+    .letter .photo {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 4px solid white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 8px 0;
     }
     .letter p {
-      font-size: 14px;
+      font-size: 11px;
       color: #333;
-      line-height: 1.5;
+      line-height: 1.4;
+      margin: 0;
     }
+    /* Animation Triggers */
     .envelope-wrapper.open .flap {
       transform: rotateX(180deg);
       z-index: 1;
     }
     .envelope-wrapper.open .letter {
-      transform: translateY(-120px);
+      transform: translateY(-160px); /* Pushes the card up more to show the picture */
+      height: 320px; /* Card expands upwards so she can read and view the photo */
       z-index: 4;
     }
     .hint {
@@ -119,33 +135,34 @@
 </head>
 <body>
 
-  <!-- Hidden audio file -->
+  <!-- Hidden background music -->
   <audio id="bg-music" loop>
     <source src="song.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Added a function to open the envelope AND play the music -->
   <div class="envelope-wrapper" onclick="openAndPlay()">
     <div class="flap"></div>
     <div class="envelope-left"></div>
     <div class="envelope"></div>
+    
     <div class="letter">
       <h1>Hey Beautiful ❤️</h1>
+      <!-- Added your Photo -->
+      <img src="us.jpg" alt="Us" class="photo">
       <p>I just wanted to make something small to remind you how much you mean to me. You're amazing.</p>
     </div>
+    
     <div class="hint">Tap to open</div>
   </div>
 
   <script>
     function openAndPlay() {
-      // Toggle the envelope open/closed
       const wrapper = document.querySelector('.envelope-wrapper');
       wrapper.classList.toggle('open');
       
-      // Play or pause the music depending on if it's open
       const music = document.getElementById('bg-music');
       if (wrapper.classList.contains('open')) {
-        music.play();
+        music.play().catch(err => console.log("Audio play blocked until user interaction", err));
       } else {
         music.pause();
       }
